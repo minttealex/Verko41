@@ -20,18 +20,87 @@ namespace Verko41
     /// </summary>
     public partial class ProductPage : Page
     {
+        private int totalProducts;
+        private int displayedProducts;
+
         public ProductPage()
         {
             InitializeComponent();
 
             var currentProducts = Verko41Entities.GetContext().Product.ToList();
 
+            totalProducts = Verko41Entities.GetContext().Product.Count();
+
             ProductListView.ItemsSource = currentProducts;
+
+            ComboType.SelectedIndex = 0;
+
+            UpdateProducts();
+        }
+
+        private void UpdateProducts()
+        {
+            var currentProducts = Verko41Entities.GetContext().Product.ToList();
+
+            if (ComboType.SelectedIndex == 0)
+            {
+                //
+            }
+            if (ComboType.SelectedIndex == 1)
+            {
+                currentProducts = currentProducts.Where(p => (Convert.ToInt32(p.ProductDiscountAmount) >= 0 && Convert.ToInt32(p.ProductDiscountAmount) < 10)).ToList();
+            }
+            if (ComboType.SelectedIndex == 2)
+            {
+                currentProducts = currentProducts.Where(p => (Convert.ToInt32(p.ProductDiscountAmount) >= 10 && Convert.ToInt32(p.ProductDiscountAmount) < 15)).ToList();
+            }
+            if (ComboType.SelectedIndex == 3)
+            {
+                currentProducts = currentProducts.Where(p => (Convert.ToInt32(p.ProductDiscountAmount) >= 15)).ToList();
+            }
+
+            currentProducts = currentProducts.Where(p => p.ProductName.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
+
+            ProductListView.ItemsSource = currentProducts.ToList();
+
+            if (RButtonDown.IsChecked.Value)
+            {
+                ProductListView.ItemsSource = currentProducts.OrderByDescending(p => p.ProductCost).ToList();
+            }
+
+            if (RButtonUp.IsChecked.Value)
+            {
+                ProductListView.ItemsSource = currentProducts.OrderBy(p => p.ProductCost).ToList();
+            }
+
+            displayedProducts = currentProducts.Count;
+            CountTextBlock.Text = $"{displayedProducts} из {totalProducts}";
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Manager.MainFrame.Navigate(new AddEditPage());
+        }
+
+        private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateProducts();
+        }
+
+        private void RButtonUp_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateProducts();
+        }
+
+        private void RButtonDown_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateProducts();
+        }
+
+        private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateProducts();
         }
     }
 }
