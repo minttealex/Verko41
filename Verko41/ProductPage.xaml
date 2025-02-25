@@ -11,12 +11,25 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="115"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
 
-        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top">
+            <TextBlock FontSize="16" Text="Вы авторизованы как "/>
+            <TextBlock Name="FIOTB" Text="" FontSize="16"/>
+
+        </StackPanel>
+
+        <StackPanel Margin="10, 0, 0, 20" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock FontSize="16" Text="Роль: "/>
+            <TextBlock x:Name="RoleTB" Text="Роль: " FontSize="16"/>
+        </StackPanel>
+
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+
+
 
             <TextBlock Text="0 из 0" Name="CountTextBlock" VerticalAlignment="Bottom" FontSize="14" HorizontalAlignment="Left" Width="100"/>
 
@@ -39,7 +52,7 @@
                 </ComboBox>
             </StackPanel>
         </WrapPanel>
-        
+
         <ListView Name="ProductListView" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>

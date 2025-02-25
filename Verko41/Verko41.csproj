@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AuthPage.xaml.cs">
+      <DependentUpon>AuthPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>VerkoModel.tt</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
       <DependentUpon>VerkoModel.edmx</DependentUpon>
     </Compile>
     <Page Include="AddEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,16 +178,6 @@
     <Resource Include="images\F635R4.jpg" />
     <Resource Include="images\G432E4.jpg" />
     <Resource Include="ress\picture.png" />
-    <Content Include="VerkoModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>VerkoModel.Context.cs</LastGenOutput>
-      <DependentUpon>VerkoModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="VerkoModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VerkoModel.edmx</DependentUpon>
-      <LastGenOutput>VerkoModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ress\logo.png" />
@@ -191,6 +188,17 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="VerkoModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>VerkoModel.edmx</DependentUpon>
+      <LastGenOutput>VerkoModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="VerkoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>VerkoModel.edmx</DependentUpon>
+      <LastGenOutput>VerkoModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
